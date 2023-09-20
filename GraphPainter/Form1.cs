@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace GraphPainter
 {
@@ -93,6 +94,7 @@ namespace GraphPainter
             double xValue, yValue;
             for (xValue = -origin.X; xValue <= origin.X; xValue += 1)
             {
+               
                 DataRow row = table.NewRow();
                 row["x"] = xValue;
                 try
@@ -126,10 +128,10 @@ namespace GraphPainter
                 double x2 = Convert.ToDouble(table.Rows[i + 1]["x"]);
                 double y2 = Convert.ToDouble(table.Rows[i + 1]["y"]);
 
-                if (y1 != Convert.ToDouble(DBNull.Value) && y2 != Convert.ToDouble(DBNull.Value))
-                {
+                //if (y1 != Convert.ToDouble(DBNull.Value) && y2 != Convert.ToDouble(DBNull.Value))
+                //{
                     g.DrawLine(graphPen, (float)x1, (float)y1, (float)x2, (float)y2);
-                }
+                //}
             }
         }
     }
