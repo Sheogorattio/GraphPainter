@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
+using NFun;
 
 namespace GraphPainter
 {
@@ -25,6 +26,7 @@ namespace GraphPainter
             InitializeComponent();
             InitializeGraphics();
             button1.Click += Button1_Click;
+            MessageBox.Show("+\t\tДобавляет два операнда.\tA + B= 10\r\n−\t\tВычитает второй операнд из первого. B − A= -2\r\n*\t\tУмножает оба операнда. A * B= 24\r\n%\t\tОператор модуля - остаток от деления. A % B= 2\r\n**\t\tВозведение основания А в степень В  A**B = 1296\r\n− (унарный)\tУмножьте выражение на -1.  −(A)= -6");
         }
 
         private void InitializeGraphics()
@@ -101,8 +103,9 @@ namespace GraphPainter
                 {
                     // Парсим функцию и вычисляем значение для текущего x
                     var_sb.Replace("x", xValue.ToString());
-                    yValue = Convert.ToDouble(table.Compute(var_sb.ToString(),""));
-                    row["y"] = yValue;
+                    //yValue = Convert.ToDouble(table.Compute(var_sb.ToString(),""));
+                    yValue = Convert.ToDouble(Funny.Calc(var_sb.ToString()));
+                    row["y"] = Math.Round(yValue,4);
                     var_sb.Clear();
                     var_sb.Append(sb.ToString());
                 }
@@ -114,25 +117,36 @@ namespace GraphPainter
             }
 
             // Рисуем график
-            for (int i = 0; i < table.Rows.Count - 1; i++)
+            double x1, x2, y1, y2;
+            try
             {
-                //MessageBox.Show(table.Rows[i]["x"].ToString());
-                double x1 = Convert.ToDouble(table.Rows[i]["x"]);
+                
+                for (int i = 0; i < table.Rows.Count - 1; i++)
+                {
+
+                    x1 = Convert.ToDouble(table.Rows[i]["x"]);
 
 
+                    if (table.Rows[i]["y"].ToString()[0] == 45 || table.Rows[i]["y"].ToString()[0] <= 57 && table.Rows[i]["y"].ToString()[0] >= 48)
+                    {
+                        y1 = Convert.ToDouble(table.Rows[i]["y"]);
+                    }
+                    else continue;
 
-                double y1 = Convert.ToDouble(table.Rows[i]["y"]);
+
+                    x2 = Convert.ToDouble(table.Rows[i + 1]["x"]);
+
+                    if (table.Rows[i]["y"].ToString()[0] == 45 || table.Rows[i + 1]["y"].ToString()[0] <= 57 && table.Rows[i + 1]["y"].ToString()[0] >= 48)
+                    {
+                        y2 = Convert.ToDouble(table.Rows[i + 1]["y"]);
+                    }
+                    else continue;
 
 
-
-                double x2 = Convert.ToDouble(table.Rows[i + 1]["x"]);
-                double y2 = Convert.ToDouble(table.Rows[i + 1]["y"]);
-
-                //if (y1 != Convert.ToDouble(DBNull.Value) && y2 != Convert.ToDouble(DBNull.Value))
-                //{
                     g.DrawLine(graphPen, (float)x1, (float)y1, (float)x2, (float)y2);
-                //}
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }
