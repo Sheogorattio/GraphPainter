@@ -26,7 +26,7 @@ namespace GraphPainter
             InitializeComponent();
             InitializeGraphics();
             button1.Click += Button1_Click;
-            MessageBox.Show("+\t\tДобавляет два операнда.\tA + B= 10\r\n−\t\tВычитает второй операнд из первого. B − A= -2\r\n*\t\tУмножает оба операнда. A * B= 24\r\n%\t\tОператор модуля - остаток от деления. A % B= 2\r\n**\t\tВозведение основания А в степень В  A**B = 1296\r\n− (унарный)\tУмножьте выражение на -1.  −(A)= -6");
+            MessageBox.Show("+\t\tAdds two operands. A+B=10\r\n−\t\tSubtracts the second operand from the first. B−A=-2\r\n*\t\tMultiplies both operands. A*B=24\r\n%\t\tModulo operator - remainder of the division. A%B=2\r\n**\t\tRaises A to the power of B. A**B=1296\r\n− (unary)\t\tMultiply the expression by -1. −(A)=-6");
         }
 
         private void InitializeGraphics()
